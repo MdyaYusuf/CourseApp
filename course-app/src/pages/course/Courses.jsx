@@ -14,6 +14,7 @@ export default function Courses() {
               <h4>{item.title}</h4>
               <p>{item.description}</p>
               <Link to={"/courses/" + item.id}>Detay</Link>
+              <Link to={item.id + "/edit"}>Edit</Link>
             </div>
           </div>
         ))}

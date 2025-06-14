@@ -1,8 +1,8 @@
-import { useLoaderData } from "react-router";
+import { useRouteLoaderData } from "react-router";
 
 export default function CourseDetails() {
 
-  const course = useLoaderData();
+  const course = useRouteLoaderData("course-details");
 
   return (
     <div className="course-details">
