@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/Home'
 import About from './pages/About'
-import Courses, { coursesLoader } from './pages/course/Courses'
+import Courses, { courseDeleteAction, coursesLoader } from './pages/course/Courses'
 import Faq from './pages/help/Faq'
 import Contact from './pages/help/Contact'
 import MainLayout from './layouts/MainLayout'
@@ -30,7 +30,8 @@ const router = createBrowserRouter([
             loader: courseDetailsLoader,
             children: [
               { index: true, element: <CourseDetails /> },
-              { path: "edit", element: <CourseEdit />, action: courseAction }
+              { path: "edit", element: <CourseEdit />, action: courseAction },
+              { path: "delete", action: courseDeleteAction }
             ] 
           }
         ]
