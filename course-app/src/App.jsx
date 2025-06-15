@@ -10,6 +10,8 @@ import CourseDetails, { courseDetailsLoader } from './pages/course/CourseDetails
 import CourseLayout from './layouts/CourseLayout'
 import CourseCreate, { courseAction } from './pages/course/CourseForm'
 import CourseEdit from './pages/course/CourseEdit'
+import NotFound from './pages/error/NotFound'
+import Error from './pages/error/Error'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
       {
         path: "courses",
         element: <CourseLayout />,
+        errorElement: <Error />,
         children: [
           { index: true, element: <Courses />, loader: coursesLoader },
           { path: "create", element: <CourseCreate />, action: courseAction },
@@ -43,7 +46,8 @@ const router = createBrowserRouter([
           { path: "contact", element: <Contact /> },
           { path: "faq", element: <Faq /> }
         ]
-      }
+      },
+      { path: "*", element: <NotFound /> }
     ]
   }
 ]);

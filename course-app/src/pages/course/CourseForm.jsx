@@ -5,24 +5,33 @@ export default function CourseForm({ method, data }) {
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  const errors = useActionData();
+  const result = useActionData();
 
   return (
     <Form method={method}>
+      {result && result.errors && (
+        <ul className="errors">
+          {
+            Object.values(result.errors).map((err) => (
+              <li key={{err}}>{err}</li>
+            ))
+          }
+        </ul>
+      )}
       <div>
         <label htmlFor="title">Email:</label>
         <input type="text" name="title" id="title" required defaultValue={data ? data.title : ""} />
-        {errors && errors.title && <p>{errors.title}</p>}
+        {result && result.title && <p>{result.title}</p>}
       </div>
       <div>
         <label htmlFor="image">Image:</label>
         <input type="text" name="image" id="image" required defaultValue={data ? data.image : ""} />
-        {errors && errors.image && <p>{errors.image}</p>}
+        {result && result.image && <p>{result.image}</p>}
       </div>
       <div>
         <label htmlFor="description">Description:</label>
         <textarea name="description" rows={5} required defaultValue={data ? data.description : ""}></textarea>
-        {errors && errors.description && <p>{errors.description}</p>}
+        {result && result.description && <p>{result.description}</p>}
       </div>
       <button disabled={isSubmitting} type="submit">{isSubmitting ? "Kayıt Ediliyor" : "Kaydet"}</button>
     </Form>
@@ -72,7 +81,13 @@ export async function courseAction({request, params}){
     body: JSON.stringify(formData)
   });
 
+  if (response.status === 403) {
+
+    return response;
+  }
+
   if (response.ok) {
+
     return redirect("/courses");
   }
 }
